@@ -60,7 +60,7 @@ def test_7():
     response = requests.get(endpoint)
     assert response.status_code == 200, "Incorrect status code"
     assert len(response.json()) == 1, "Incorrect amount of meals"
-    assert 400 <= list(response.json())[0]["calories"] <= 500, "Incorrect amount of calories"
+    assert 400 <= response.json()[0]["cal"] <= 500, "Incorrect amount of calories"
 
 def test_8():
     endpoint = f"{BASE_URL}/meals"
