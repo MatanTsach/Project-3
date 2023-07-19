@@ -8,7 +8,7 @@ jobs:
         - name: Insert log create date
           run: date -Iminutes >> log.txt
         - name: Insert our names
-          run: echo "Matan Tsach, Dolev Gabay, Gal Razabi\n" >> log.txt
+          run: echo "Matan Tsach, Dolev Gabay, Gal Razabi" >> log.txt
         - name: Checkout
           uses: actions/checkout@v3
         - name: Setup Docker Buildx
@@ -17,16 +17,16 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: ./Dockerfile.setport
+            file: Dockerfile
             tags: project-1:latest
             outputs: type=docker, dest=/tmp/image.tar
         - name: Check if image was created
           if: always()
           run: |
             if [ -f /tmp/image.tar ]; then
-                echo "image successfully built\n" >> log.txt
+                echo "image successfully built" >> log.txt
             else
-                echo "image not able to be built\n" >> log.txt
+                echo "image not able to be built" >> log.txt
             fi
         - name: Upload image artifact
           uses: actions/upload-artifact@v3
@@ -52,9 +52,9 @@ jobs:
         - name: Check container is running
           run: |
             if docker ps | grep -q "project1"; then
-                echo "Container up and running\n" >> log/log.txt
+                echo "Container up and running" >> log/log.txt
             else
-                echo "Container failed to run\n" >> log/log.txt
+                echo "Container failed to run" >> log/log.txt
             fi
         # Part 2
         - name: Checkout
