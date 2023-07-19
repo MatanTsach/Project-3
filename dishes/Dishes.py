@@ -16,7 +16,6 @@ class Dishes(Resource):
         parser = reqparse.RequestParser()
 
         content_type = request.headers.get("Content-Type")
-
         if not content_type or "application/json" not in content_type:
             return 0, 415
 
