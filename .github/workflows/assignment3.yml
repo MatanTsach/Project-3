@@ -41,14 +41,19 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         # Part 1
+        - name: Checkout
+          uses: actions/checkout@v3
+        - name: Set up Python
+          uses: actions/setup-python@v4
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install pytest
+            pip install requests
         - name: Download artifact
           uses: actions/download-artifact@v3
-        - name: Copy log file to working directory
-          run: cp log/log.txt .
         - name: Load docker image from previous workflow
           run: docker load --input project1/image.tar
-        - name: test
-          run: cat log.txt
         - name: Run image in container
           run: docker run -p8000:8000 project-1 &
         - name: Check container is running
@@ -59,18 +64,6 @@ jobs:
             else
                 echo "Container failed to run" >> log.txt
             fi
-        # Part 2
-        - name: Checkout
-          uses: actions/checkout@v3
-        - name: Set up Python
-          uses: actions/setup-python@v4
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install pytest
-            pip install requests
-           # if [ -f requirments.txt ]; then pip install -r requirements.txt; fi
-        # Part 3
         - name: Test with pytest
           run: |
             cd tests
@@ -81,12 +74,10 @@ jobs:
           with:
             name: Test_Results
             path: tests/assn3_test_results.txt
-        - name: test2
-          run: ls
         - name: Upload log artifact
           if: always()
           uses: actions/upload-artifact@v3
           with:
             name: log
-            path: log.txt
+            path: log/log.txt
             
