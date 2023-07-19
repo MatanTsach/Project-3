@@ -60,9 +60,9 @@ jobs:
           if: always()
           run: |
             if docker ps | grep -q "project-1"; then
-                echo "Container up and running" >> log.txt
+                echo "Container up and running" >> log/log.txt
             else
-                echo "Container failed to run" >> log.txt
+                echo "Container failed to run" >> log/log.txt
             fi
         - name: Test with pytest
           run: |
