@@ -15,14 +15,10 @@ jobs:
             tags: project-1:latest
             outputs: type=docker, dest=/tmp/image.tar
         - name: Create log file
-          run: touch log.txt
-        - name: Insert log create date
-          run: date -Iminutes >> log.txt
-        - name: Insert our names
-          run: echo "Matan Tsach, Dolev Gabay, Gal Razabi" >> log.txt
-        - name: Check if image was created
-          if:
+          if: always()
           run: |
+            date -Iminutes >> log.txt
+            echo "Matan Tsach, Dolev Gabay, Gal Razabi" >> log.txt
             if [ -f /tmp/image.tar ]; then
                 echo "image successfully built" >> log.txt
             else
@@ -40,6 +36,7 @@ jobs:
             name: log
             path: log.txt
     test:
+        needs: build
         runs-on: ubuntu-latest
         steps:
         # Part 1
