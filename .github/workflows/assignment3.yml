@@ -21,7 +21,7 @@ jobs:
             tags: project-1:latest
             outputs: type=docker, dest=/tmp/image.tar
         - name: Check if image was created
-          if: always()
+          if:
           run: |
             if [ -f /tmp/image.tar ]; then
                 echo "image successfully built" >> log.txt
@@ -34,7 +34,7 @@ jobs:
             name: project1
             path: /tmp/image.tar
         - name: Upload log artifact
-          if: always()
+          if:
           uses: actions/upload-artifact@v3
           with:
             name: log
