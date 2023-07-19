@@ -31,3 +31,9 @@ def test_3():
     response = requests.get(endpoint)
     assert response.status_code == 200, "Incorrect status code"
     assert len(response.json()) == 3, "Incorrect amount of json objects"
+
+def test_4():
+    endpoint = f"{BASE_URL}/dishes"
+    response = requests.post(endpoint, json={"name": "Chicken"})
+    assert response.status_code in [404, 400, 422], "Incorrect status code"
+    assert response.json()["code"] == -3, "Incorrect returned value"
