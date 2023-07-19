@@ -36,13 +36,13 @@ def test_4():
     endpoint = f"{BASE_URL}/dishes"
     response = requests.post(endpoint, json={"name": "blah"})
     assert response.status_code in [404, 400, 422], "Incorrect status code"
-    assert response.json()["code"] == -3, "Incorrect returned value"
+    assert response.json() == -3, "Incorrect returned value"
 
 def test_5():
     endpoint = f"{BASE_URL}/dishes"
     response = requests.post(endpoint, json={"name": "orange"})
     assert response.status_code in [400, 404, 422], "Incorrect status code"
-    assert response.json()["code"] == -2, "Incorrect returned value"
+    assert response.json() == -2, "Incorrect returned value"
 
 def test_6():
     endpoint = f"{BASE_URL}/meals"
@@ -71,4 +71,4 @@ def test_8():
         "dessert": 3
     })
     assert response.status_code in [400, 422], "Incorrect status code"
-    assert response.json()["code"] == -2, "Incorrect returned value"
+    assert response.json() == -2, "Incorrect returned value"
