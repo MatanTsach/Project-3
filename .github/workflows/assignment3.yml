@@ -46,10 +46,10 @@ jobs:
         - name: Load docker image from previous workflow
           run: docker load --input project1/image.tar
         - name: Run image in container
-          run: docker run -p8000:8000 project1 &
+          run: docker run -p8000:8000 project-1 &
         - name: Check container is running
           run: |
-            if docker ps | grep -q "project1"; then
+            if docker ps | grep -q "project-1"; then
                 echo "Container up and running" >> log/log.txt
             else
                 echo "Container failed to run" >> log/log.txt
@@ -81,5 +81,5 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: log
-            path: log/log.txt
+            path: log.txt
             
