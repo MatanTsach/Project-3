@@ -20,7 +20,7 @@ jobs:
           run: |
             date -Iminutes >> log.txt
             echo "Matan Tsach, Dolev Gabay, Gal Razabi" >> log.txt
-            if [ [ ${{ steps.build-export.conclusion }} == 'success' ]; ]; then
+            if [[ $build-export-exit-code -eq 0 ]]; then
                 echo "image successfully built" >> log.txt
             else
                 echo "image not able to be built" >> log.txt
@@ -61,7 +61,7 @@ jobs:
           uses: actions/setup-python@v4
         - name: Install dependencies
           run: |
-            python -m pip pinstall --upgrade pip
+            python -m pip install --upgrade pip
             pip install pytest
             pip install requests
            # if [ -f requirments.txt ]; then pip install -r requirements.txt; fi
