@@ -30,7 +30,7 @@ jobs:
             name: project1
             path: /tmp/image.tar
         - name: Upload log artifact
-          if:
+          if: always()
           uses: actions/upload-artifact@v3
           with:
             name: log
