@@ -20,7 +20,7 @@ jobs:
           run: |
             date -Iminutes >> log.txt
             echo "Matan Tsach, Dolev Gabay, Gal Razabi" >> log.txt
-            if [ [ ${{ steps.build-export.outcome }} == 'success' ]; ]; then
+            if [ [ ${{ steps.build-export.conclusion }} == 'success' ]; ]; then
                 echo "image successfully built" >> log.txt
             else
                 echo "image not able to be built" >> log.txt
