@@ -64,10 +64,16 @@ jobs:
             else
                 echo "Container failed to run" >> log/log.txt
             fi
-        - name: Test with pytest
+        - name: Test with pytest and log result
           run: |
             cd tests
             pytest -v assn3_tests.py > assn3_test_results.txt
+            exit_code=$?
+            if [ $exit_code -eq 0 ]; then
+              echo "tests succeeded" >> log/log.txt
+            else
+              echo "tests failed" >> log/log.txt
+            fi
         - name: Upload test results
           if: always()
           uses: actions/upload-artifact@v3

@@ -34,6 +34,41 @@ def test_3():
 
 def test_4():
     endpoint = f"{BASE_URL}/dishes"
-    response = requests.post(endpoint, json={"name": "Chicken"})
+    response = requests.post(endpoint, json={"name": "blah"})
     assert response.status_code in [404, 400, 422], "Incorrect status code"
     assert response.json()["code"] == -3, "Incorrect returned value"
+
+def test_5():
+    endpoint = f"{BASE_URL}/dishes"
+    response = requests.post(endpoint, json={"name": "orange"})
+    assert response.status_code in [400, 404, 422], "Incorrect status code"
+    assert response.json()["code"] == -2, "Incorrect returned value"
+
+def test_6():
+    endpoint = f"{BASE_URL}/meals"
+    response = requests.post(endpoint, json={
+        "name": "delicious",
+        "appetizer": 1,
+        "main": 2,
+        "dessert": 3
+    })
+    assert response.status_code == 201, "Incorrect status code"
+    assert response.json()["ID"] > 0, "Incorrect ID returned"
+
+def test_7():
+    endpoint = f"{BASE_URL}/meals"
+    response = requests.get(endpoint)
+    assert response.status_code == 200, "Incorrect status code"
+    assert len(response.json()) == 1, "Incorrect amount of meals"
+    assert 400 <= response.json()[0]["calories"] <= 500, "Incorrect amount of calories"
+
+def test_8():
+    endpoint = f"{BASE_URL}/meals"
+    response = requests.post(endpoint, json={
+        "name": "delicious",
+        "appetizer": 1,
+        "main": 2,
+        "dessert": 3
+    })
+    assert response.status_code in [400, 422], "Incorrect status code"
+    assert response.json()["code"] == -2, "Incorrect returned value"
