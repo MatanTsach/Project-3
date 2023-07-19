@@ -13,11 +13,21 @@ def test_1():
         payload = {"name": dish}
         response = requests.post(endpoint, json=payload)
 
-        assert response.status_code == 201, "TEST1: Failed, status code incorrect."
+        assert response.status_code == 201, "Status code incorrect."
 
         dish_id = response.text.strip()
 
-        assert dish_id not in response_ids, "TEST1: Failed, duplicated dish id"
+        assert dish_id not in response_ids, "Duplicated dish id"
         response_ids.append(dish_id)
 
-    print("TEST1: Success")
+def test_2():
+    endpoint = f"{BASE_URL}/dishes/1"
+    response = requests.get(endpoint)
+    assert response.status_code == 200, "Status code incorrect."
+    assert 0.9 <= response.json()["sodium"] <= 1.1, "Sodium level incorrect"
+
+def test_3():
+    endpoint = f"{BASE_URL}/dishes"
+    response = requests.get(endpoint)
+    assert response.status_code == 200, "Incorrect status code"
+    assert len(response.json()) == 3, "Incorrect amount of json objects"
