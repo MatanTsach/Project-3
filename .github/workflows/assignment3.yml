@@ -3,12 +3,6 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-        - name: Create log file
-          run: touch log.txt
-        - name: Insert log create date
-          run: date -Iminutes >> log.txt
-        - name: Insert our names
-          run: echo "Matan Tsach, Dolev Gabay, Gal Razabi" >> log.txt
         - name: Checkout
           uses: actions/checkout@v3
         - name: Setup Docker Buildx
@@ -20,6 +14,12 @@ jobs:
             file: Dockerfile
             tags: project-1:latest
             outputs: type=docker, dest=/tmp/image.tar
+        - name: Create log file
+          run: touch log.txt
+        - name: Insert log create date
+          run: date -Iminutes >> log.txt
+        - name: Insert our names
+          run: echo "Matan Tsach, Dolev Gabay, Gal Razabi" >> log.txt
         - name: Check if image was created
           if:
           run: |
