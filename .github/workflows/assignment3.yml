@@ -45,9 +45,12 @@ jobs:
           uses: actions/download-artifact@v3
         - name: Load docker image from previous workflow
           run: docker load --input project1/image.tar
+        - name: test
+          run: cat log/log.txt
         - name: Run image in container
           run: docker run -p8000:8000 project-1 &
         - name: Check container is running
+          if: always()
           run: |
             if docker ps | grep -q "project-1"; then
                 echo "Container up and running" >> log/log.txt
@@ -81,5 +84,5 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: log
-            path: log.txt
+            path: log/log.txt
             
