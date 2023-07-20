@@ -15,8 +15,9 @@ def main():
             data = {"name": name}
             response = post_request(endpoint, data)
             response = get_request(endpoint + '/' + str(response.json())).json()
+            print(response)
             with open("response.txt", "a") as results_file:
-                results_file.write(f"{name} contains {response['cal']} calories, {response['sodium']} mgs of sodium, and {response['sugar']} grams of sugar\n")
-
+                #results_file.write(f"{name} contains {response['cal']} calories, {response['sodium']} mgs of sodium, and {response['sugar']} grams of sugar\n")
+                results_file.write(response)
 if __name__ == "__main__":
     main()
