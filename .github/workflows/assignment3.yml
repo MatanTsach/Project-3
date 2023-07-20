@@ -68,7 +68,7 @@ jobs:
           run: |
             cd tests
             pytest -v assn3_tests.py > assn3_test_results.txt
-            echo "TEST_RESULT=$(echo $!)" >> $GITHUB_ENV
+            echo "TEST_RESULT=$(echo $?)" >> $GITHUB_ENV
         - name: Add test status to log file
           run: |
             if [ ${{ env.TEST_RESULT }} -eq 0 ]; then
