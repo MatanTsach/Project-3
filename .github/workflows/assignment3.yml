@@ -89,4 +89,35 @@ jobs:
           with:
             name: log
             path: log/log.txt
+    query:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+        # Part 1
+        - name: Checkout
+          uses: actions/checkout@v3
+        - name: Set up Python
+          uses: actions/setup-python@v4
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install pytest
+            pip install requests
+        - name: Download artifact
+          uses: actions/download-artifact@v3
+        - name: Load docker image from previous workflow
+          run: docker load --input project1/image.tar
+        - name: Run image in container
+          run: docker run -p8000:8000 project-1 &
+        - name: Run query
+          run: python QueryExecuter.py
+        - name: Upload query results
+          if: always()
+          uses: actions/upload-artifact@v3
+          with:
+            name: Response
+            path: response.txt
+        
+            
+
             
