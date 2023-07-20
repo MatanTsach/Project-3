@@ -16,6 +16,6 @@ def main():
             dish_id = post_request(endpoint, data).json()
             response = get_request(f"{endpoint}/{dish_id}").json()
             with open("response.txt", "a") as results_file:
-                results_file.write(f"{name} contains {response['cal']} calories, {response['sodium']} mgs of sodium, and {response['sugar']} grams of sugar\n")
+                results_file.write(f"{name.strip()} contains {response['cal']} calories, {response['sodium']} mgs of sodium, and {response['sugar']} grams of sugar\n")
 if __name__ == "__main__":
     main()
