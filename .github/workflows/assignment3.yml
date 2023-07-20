@@ -75,7 +75,7 @@ jobs:
           if: always()
           uses: actions/upload-artifact@v3
           with:
-            name: Test_Results
+            name: assn3_test_results
             path: tests/assn3_test_results.txt
         - name: Upload log artifact
           if: always()
@@ -84,7 +84,7 @@ jobs:
             name: log
             path: log/log.txt
     query:
-        needs: test
+        needs: build
         runs-on: ubuntu-latest
         steps:
         # Part 1
@@ -108,7 +108,7 @@ jobs:
           if: always()
           uses: actions/upload-artifact@v3
           with:
-            name: Response
+            name: response
             path: response.txt
         
             
