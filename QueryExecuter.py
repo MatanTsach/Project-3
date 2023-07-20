@@ -12,12 +12,13 @@ def main():
     endpoint = "http://127.0.0.1:8000/dishes"
     with open("query.txt", "r") as query_file:
         for name in query_file:
-            data = {"name": name}
+            data = {"name": name.strip()}
             dish_id = post_request(endpoint, data).json()
             response = get_request(f"{endpoint}/{dish_id}").json()
             print(response)
             with open("response.txt", "a") as results_file:
                 results_file.write(str(dish_id) + "IS THE DISH ID for " + name)
+                results_file.write(data)
                 #results_file.write(f"{name} contains {response['cal']} calories, {response['sodium']} mgs of sodium, and {response['sugar']} grams of sugar\n")
                 results_file.write(str(response))
 if __name__ == "__main__":
