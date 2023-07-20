@@ -70,7 +70,7 @@ jobs:
           if: steps.pytest.outcome == 'success'
           run: echo "tests succeeded" >> log/log.txt
         - name: Add test status to log file failure
-          if: steps.pytest.outcome == 'failure'
+          if: steps.pytest.outcome == 'failure' || steps.pytest.outcome == 'cancelled'
           run: echo "tests failed" >> log/log.txt
         - name: Upload test results
           if: always()
