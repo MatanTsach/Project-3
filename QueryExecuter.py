@@ -13,11 +13,11 @@ def main():
     with open("query.txt", "r") as query_file:
         for name in query_file:
             data = {"name": name}
-            response = post_request(endpoint, data)
-            response = get_request(endpoint + '/' + str(response.json())).json()
+            dish_id = post_request(endpoint, data).json()
+            response = get_request(f"{endpoint}/{dish_id}").json()
             print(response)
             with open("response.txt", "a") as results_file:
                 #results_file.write(f"{name} contains {response['cal']} calories, {response['sodium']} mgs of sodium, and {response['sugar']} grams of sugar\n")
-                results_file.write(response)
+                results_file.write(str(response))
 if __name__ == "__main__":
     main()
