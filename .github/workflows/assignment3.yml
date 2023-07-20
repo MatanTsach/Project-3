@@ -68,9 +68,8 @@ jobs:
           run: |
             cd tests
             pytest -v assn3_tests.py > assn3_test_results.txt
-            exit_code=$?
+            export exit_code=$?
         - name: Add test status to log file
-          if: always()
           run: |
             if [ $exit_code -eq 0 ]; then
                 echo "tests succeeded" >> log/log.txt
