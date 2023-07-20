@@ -67,10 +67,10 @@ jobs:
             cd tests
             pytest -v assn3_tests.py > assn3_test_results.txt
         - name: Add test status to log file success
-          if: steps.pytest.outcome == 'success'
+          if: success() && steps.pytest.outcome == 'success'
           run: echo "tests succeeded" >> log/log.txt
         - name: Add test status to log file failure
-          if: steps.pytest.outcome == 'failure' || steps.pytest.outcome == 'cancelled'
+          if: failure() && steps.pytest.outcome == 'failure'
           run: echo "tests failed" >> log/log.txt
         - name: Upload test results
           if: always()
