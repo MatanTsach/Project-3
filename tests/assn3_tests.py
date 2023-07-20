@@ -29,7 +29,7 @@ def test_2():
 def test_3():
     endpoint = f"{BASE_URL}/dishes"
     response = requests.get(endpoint)
-    assert response.status_code == 205, "Incorrect status code"
+    assert response.status_code == 200, "Incorrect status code"
     assert len(response.json()) == 3, "Incorrect amount of json objects"
 
 def test_4():
