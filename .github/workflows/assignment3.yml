@@ -52,9 +52,9 @@ jobs:
         - name: Download artifact
           uses: actions/download-artifact@v3
         - name: Load docker image from previous workflow
-          run: docker load --input project1/imadge.tar
+          run: docker load --input project1/image.tar
         - name: Run image in container
-          run: docker run -p8000:8000 project-1 &
+          run: docker run -p8000:8000 profject-1 &
         - name: Update log file container fail
           if: failure()
           run: echo "Container failed to run" >> log/log.txt
@@ -62,14 +62,15 @@ jobs:
           if: success()
           run: echo "Container up and running" >> log/log.txt
         - name: Test with pytest and log result
+          id: pytest
           run: |
             cd tests
             pytest -v assn3_tests.py > assn3_test_results.txt
         - name: Add test status to log file success
-          if: success()
+          if: steps.pytest.outcome == 'success'
           run: echo "tests succeeded" >> log/log.txt
         - name: Add test status to log file failure
-          if: failure()
+          if: steps.pytest.outcome == 'failure'
           run: echo "tests failed" >> log/log.txt
         - name: Upload test results
           if: always()
