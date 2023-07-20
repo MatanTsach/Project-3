@@ -9,7 +9,7 @@ def get_request(url):
     return response
 
 def main():
-    endpoint = "http://127.0.0.1/dishes"
+    endpoint = "http://127.0.0.1:8000/dishes"
     with open("query.txt", "r") as query_file:
         for name in query_file:
             data = {"name": name}
