@@ -53,16 +53,19 @@ jobs:
         - name: Download artifact
           uses: actions/download-artifact@v3
         - name: Load docker image from previous workflow
+          id: load-image
           run: docker load --input project1/image.tar
         - name: Run image in container
           run: docker run -p8000:8000 project-1 &
         - name: Check container is running
           if: always()
           run: |
-            if docker ps | grep -q "project-1"; then
-                echo "Container up and running" >> log/log.txt
-            else
-                echo "Container failed to run" >> log/log.txt
+            if [[ $load-image-exit-code -eq 0 ]]; then
+                if docker ps | grep -q "project-1"; then
+                    echo "Container up and running" >> log/log.txt
+                else
+                    echo "Container failed to run" >> log/log.txt
+                fi
             fi
         - name: Test with pytest and log result
           run: |
@@ -72,10 +75,12 @@ jobs:
         - name: Add test status to log file
           if: always()
           run: |
-            if [ ${{ env.TEST_RESULT }} -eq 0 ]; then
-                echo "tests succeeded" >> log/log.txt
-            else
-                echo "tests failed" >> log/log.txt
+            if docker ps | grep -q "project-1"; then
+                if [ ${{ env.TEST_RESULT }} -eq 0 ]; then
+                    echo "tests succeeded" >> log/log.txt
+                else
+                    echo "tests failed" >> log/log.txt
+                fi
             fi
         - name: Upload test results
           if: always()
