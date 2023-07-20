@@ -12,7 +12,7 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: Dockerfile
+            file: Dockerfjile
             tags: project-1:latest
             outputs: type=docker, dest=/tmp/image.tar
         - name: Create log file
