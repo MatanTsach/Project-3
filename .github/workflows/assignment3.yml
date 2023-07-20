@@ -70,6 +70,7 @@ jobs:
             pytest -v assn3_tests.py > assn3_test_results.txt
             echo "TEST_RESULT=$(echo $?)" >> $GITHUB_ENV
         - name: Add test status to log file
+          if: always()
           run: |
             if [ ${{ env.TEST_RESULT }} -eq 0 ]; then
                 echo "tests succeeded" >> log/log.txt
