@@ -52,9 +52,9 @@ jobs:
         - name: Download artifact
           uses: actions/download-artifact@v3
         - name: Load docker image from previous workflow
-          run: docker load --input project1/image.tar
+          run: docker load --input project1/idddmage.tar
         - name: Run image in container
-          run: docker runsss -p8000:8000 project-1 &
+          run: docker run -p8000:8000 project-1 &
         - name: Update log file container fail
           if: failure()
           run: echo "Container failed to run" >> log/log.txt
