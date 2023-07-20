@@ -52,7 +52,7 @@ def test_6():
         "main": 2,
         "dessert": 3
     })
-    assert response.status_code == 2031, "Incorrect status code"
+    assert response.status_code == 201, "Incorrect status code"
     assert response.json() > 0, "Incorrect ID returned"
 
 def test_7():
