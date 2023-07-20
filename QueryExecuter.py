@@ -14,7 +14,7 @@ def main():
         for name in query_file:
             data = {"name": name}
             response = post_request(endpoint, data)
-            response = get_request(endpoint + '/' + response.json()).json()
+            response = get_request(endpoint + '/' + str(response.json())).json()
             with open("response.txt", "a") as results_file:
                 results_file.write(f"{name} contains {response['cal']} calories, {response['sodium']} mgs of sodium, and {response['sugar']} grams of sugar\n")
 
